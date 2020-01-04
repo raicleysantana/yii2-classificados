@@ -56,7 +56,7 @@ class DefaultController extends Controller
     /**
      * @return string|\yii\web\Response
      */
-    public function actionIndex()
+    public function actionAccount()
     {
         $accountForm = new AccountForm();
         $accountForm->setUser(Yii::$app->user->identity);

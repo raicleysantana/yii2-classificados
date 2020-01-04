@@ -30,14 +30,12 @@ $this->title = Yii::t('frontend', 'User Settings')
 
     <?php echo $form->field($model->getModel('profile'), 'lastname')->textInput(['maxlength' => 255]) ?>
 
-    <?php echo $form->field($model->getModel('profile'), 'locale')->dropDownlist(Yii::$app->params['availableLocales']) ?>
-
     <?php echo $form->field($model->getModel('profile'), 'gender')->dropDownlist([
-        \common\models\UserProfile::GENDER_FEMALE => Yii::t('frontend', 'Female'),
-        \common\models\UserProfile::GENDER_MALE => Yii::t('frontend', 'Male')
+     'M' => 'Masculino',
+     'F' => 'Feminino',
     ], ['prompt' => '']) ?>
 
-    <h2><?php echo Yii::t('frontend', 'Account Settings') ?></h2>
+    <h2>Configurações da Conta</h2>
 
     <?php echo $form->field($model->getModel('account'), 'username') ?>
 
@@ -48,7 +46,7 @@ $this->title = Yii::t('frontend', 'User Settings')
     <?php echo $form->field($model->getModel('account'), 'password_confirm')->passwordInput() ?>
 
     <div class="form-group">
-        <?php echo Html::submitButton(Yii::t('frontend', 'Update'), ['class' => 'btn btn-primary']) ?>
+        <?php echo Html::submitButton('Atualizar', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

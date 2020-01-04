@@ -3,8 +3,8 @@ $config = [
     'name' => 'Yii2 Starter Kit',
     'vendorPath' => __DIR__ . '/../../vendor',
     'extensions' => require(__DIR__ . '/../../vendor/yiisoft/extensions.php'),
-    'sourceLanguage' => 'en-US',
-    'language' => 'en-US',
+    'sourceLanguage' => 'pt-BR',
+    'language' => 'pt-BR',
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -164,6 +164,7 @@ $config = [
             'vi' => 'Tiếng Việt',
             'zh-CN' => '简体中文',
             'pl-PL' => 'Polski (PL)',
+            'pt-br' => 'Português'
         ],
     ],
 ];

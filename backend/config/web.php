@@ -3,6 +3,8 @@ $config = [
     'homeUrl' => Yii::getAlias('@backendUrl'),
     'controllerNamespace' => 'backend\controllers',
     'defaultRoute' => 'timeline-event/index',
+    'sourceLanguage' => 'pt-BR',
+    'language' => 'pt-BR',
     'components' => [
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -38,6 +40,10 @@ $config = [
         'rbac' => [
             'class' => backend\modules\rbac\Module::class,
             'defaultRoute' => 'rbac-auth-item/index',
+        ],
+        'migration' => [
+            'class' => backend\modules\migration\Module::class,
+            'defaultRoute' => 'default/index',
         ],
     ],
     'as globalAccess' => [

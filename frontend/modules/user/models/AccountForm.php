@@ -92,10 +92,10 @@ class AccountForm extends Model
     public function attributeLabels()
     {
         return [
-            'username' => Yii::t('frontend', 'Username'),
-            'email' => Yii::t('frontend', 'Email'),
-            'password' => Yii::t('frontend', 'Password'),
-            'password_confirm' => Yii::t('frontend', 'Confirm Password')
+            'username' =>'Usuário',
+            'email' => 'E-Mail',
+            'password' => 'Senha',
+            'password_confirm' => 'Confirmar Senha'
         ];
     }
 
