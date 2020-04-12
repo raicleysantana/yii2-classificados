@@ -13,6 +13,7 @@ use yii\web\Controller;
 
 class DefaultController extends Controller
 {
+    public $layout ="@frontend/views/layouts/dashboard_user/main";
     /**
      * @return array
      */
@@ -53,6 +54,12 @@ class DefaultController extends Controller
         ];
     }
 
+    public function actionIndex()
+    {
+
+        return $this->render('index');
+    }
+
     /**
      * @return string|\yii\web\Response
      */
@@ -77,6 +84,6 @@ class DefaultController extends Controller
             ]);
             return $this->refresh();
         }
-        return $this->render('index', ['model' => $model]);
+        return $this->render('account', ['model' => $model]);
     }
 }

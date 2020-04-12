@@ -18,6 +18,8 @@ class Module extends \yii\base\Module
      */
     public $enableLoginByPass = false;
 
+    public $layout = "@frontend/views/layouts/dashboard_user/main";
+
     /**
      * @inheritdoc
      */

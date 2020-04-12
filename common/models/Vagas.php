@@ -53,13 +53,13 @@ class Vagas extends \yii\db\ActiveRecord
     {
         return [
             'vaga_id' => 'Vaga ID',
-            'vaga_titulo' => 'Título',
+            'vaga_titulo' => 'Título da vaga',
             'vaga_empresa' => 'Empresa',
             'vaga_contato' => 'Contato',
             'vaga_publicado' => 'Publicado',
             'vaga_status' => 'Status',
             'vaga_descricao' => 'Descrição',
-            'vaga_arquivo' => 'Upload',
+            'vaga_arquivo' => 'Upload de arquivo',
             'user_id' => 'Usuário',
         ];
     }

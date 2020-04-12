@@ -43,8 +43,9 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
         ]); ?>
         <?php NavBar::end(); ?>
 
-        <?php echo $content ?>
-
+        <div style="margin-top: 55px">
+            <?php echo $content ?>
+        </div>
     </div>
 
     <footer class="footer">

@@ -24,7 +24,7 @@ use yii\bootstrap\ActiveForm;
 
     <?php echo $form->field($model, 'vaga_descricao')->textarea(['rows' => 6]) ?>
 
-    <?php echo $form->field($model, 'vaga_arquivo')->textInput(['maxlength' => true]) ?>
+    <?php echo $form->field($model, 'vaga_arquivo')->fileInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?php echo Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

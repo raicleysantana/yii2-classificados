@@ -111,4 +111,5 @@ class AccountForm extends Model
         }
         return $this->user->save();
     }
+
 }

@@ -3,11 +3,13 @@
 namespace frontend\controllers;
 
 use cheatsheet\Time;
+use common\models\Vagas;
 use common\sitemap\UrlsIterator;
 use frontend\models\ContactForm;
 use Sitemaped\Element\Urlset\Urlset;
 use Sitemaped\Sitemap;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\filters\PageCache;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
@@ -57,7 +59,14 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $dataProvider = new ActiveDataProvider([
+            'query' => Vagas::find(),
+            'pagination' => [
+                'pageSize' => 20,
+            ]
+        ]);
+
+        return $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
     /**

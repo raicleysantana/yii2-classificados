@@ -78,9 +78,9 @@ class UserProfile extends ActiveRecord
     {
         return [
             'user_id' => 'ID do usuário',
-            'firstname' => 'Primeiro nome',
-            'middlename' => 'Nome do meio',
-            'lastname' => 'Ultimo nome',
+            'firstname' => 'Nome',
+            //'middlename' => 'Nome',
+            'lastname' => 'Sobrenome',
             'picture' => 'Foto',
             'gender' => 'Sexo',
         ];
@@ -114,5 +114,12 @@ class UserProfile extends ActiveRecord
         return $this->avatar_path
             ? Yii::getAlias($this->avatar_base_url . '/' . $this->avatar_path)
             : $default;
+    }
+
+    public static function getSexoOptions()
+    {
+        return [
+            self::GENDER_FEMALE => 'Feminino', self::GENDER_MALE => 'Masculino'
+        ];
     }
 }

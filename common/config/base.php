@@ -6,6 +6,7 @@ $config = [
     'sourceLanguage' => 'pt-BR',
     'language' => 'pt-BR',
     'bootstrap' => ['log'],
+    'timeZone' => 'America/Manaus',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',

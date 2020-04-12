@@ -238,6 +238,11 @@ Yii::info(Yii::$app->components["i18n"]["translations"]['*']['class'], 'test');
                         'options' => ['class' => 'header'],
                     ],
                     [
+                        'label' => Yii::t('backend', 'Settings'),
+                        'url' => ['/system/settings'],
+                        'icon' => '<i class="fa fa-cogs"></i>'
+                    ],
+                    [
                         'label' => Yii::t('backend', 'RBAC Rules'),
                         'url' => '#',
                         'icon' => '<i class="fa fa-flag"></i>',
