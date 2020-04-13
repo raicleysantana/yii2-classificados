@@ -3,7 +3,8 @@
 namespace frontend\controllers;
 
 use cheatsheet\Time;
-use common\models\Vagas;
+use common\models\Curtida;
+use common\models\Vaga;
 use common\sitemap\UrlsIterator;
 use frontend\models\ContactForm;
 use Sitemaped\Element\Urlset\Urlset;
@@ -60,7 +61,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Vagas::find(),
+            'query' => Vaga::find(),
             'pagination' => [
                 'pageSize' => 20,
             ]
@@ -128,5 +129,50 @@ class SiteController extends Controller
         }
 
         return $content;
+    }
+
+    public function actionView_vaga($id)
+    {
+        $model = Vaga::findOne($id);
+
+        return $this->render('view_vaga', ['model' => $model]);
+    }
+
+    public function actionCurtir($id)
+    {
+        $ip = Yii::$app->request->getUserIP();
+        $userId = Yii::$app->user->id;
+
+        $model = Curtida::find()->where(['vaga_id' => $id])
+            ->andWhere(['or', ['ip' => $ip], ['user_id' => $userId]])
+            ->one();
+
+        if (!$model) {
+            $model = new Curtida();
+
+            $model->user_id = $userId;
+            $model->ip = $ip;
+            $model->vaga_id = $id;
+            if ($model->save(false)) {
+                echo 'Salvo com sucessso';
+            } else {
+                var_dump($model->getErrors());
+            }
+        }
+
+    }
+
+    public function actionDescurtir($id)
+    {
+        $ip = Yii::$app->request->getUserIP();
+        $userId = Yii::$app->user->id;
+
+        $model = Curtida::find()
+            ->andWhere(['or', ['ip' => $ip], ['user_id' => $userId]])
+            ->one();
+
+        if ($model) {
+            $model->delete();
+        }
     }
 }

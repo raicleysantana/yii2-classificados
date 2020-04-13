@@ -4,12 +4,12 @@ namespace frontend\modules\user\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Vagas;
+use common\models\Vaga;
 
 /**
  * vagasSearch represents the model behind the search form of `common\models\Vagas`.
  */
-class vagasSearch extends Vagas
+class vagaSearch extends Vaga
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class vagasSearch extends Vagas
      */
     public function search($params)
     {
-        $query = Vagas::find();
+        $query = Vaga::find();
 
         $query->where(['user_id' => \Yii::$app->user->id]);
         // add conditions that should always apply here

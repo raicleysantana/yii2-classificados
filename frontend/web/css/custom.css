@@ -1,0 +1,35 @@
+.vaga-titulo {
+    font-weight: 600;
+    color: #012237;
+    font-size: 24px;
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.vaga-icone {
+    margin-right: 10px;
+    transition: all .4s ease;
+    font-size: 15px;
+    color: #f16101;
+}
+
+.vaga-icone:hover {
+    color: #012237;
+}
+
+.orange {
+    color: #f16101;
+}
+
+.icone-gostei {
+    font-size: 17px;
+}
+
+.icone-gostei-ativo {
+    color: rgba(255, 21, 142, 0.99);
+}
+
+.icone-gostei:hover {
+    color: rgba(255, 21, 142, 0.99);
+    transition: all .4s ease;
+}

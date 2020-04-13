@@ -43,7 +43,7 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
         ]); ?>
         <?php NavBar::end(); ?>
 
-        <div style="margin-top: 55px">
+        <div style="margin-top: 80px">
             <?php echo $content ?>
         </div>
     </div>

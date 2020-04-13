@@ -30,6 +30,7 @@ use yii\widgets\ActiveForm;
  */
 class SignInController extends \yii\web\Controller
 {
+    public $layout = "@frontend/views/layouts/main";
 
     /**
      * @return array
@@ -295,7 +296,7 @@ class SignInController extends \yii\web\Controller
             $user->username = ArrayHelper::getValue($attributes, 'login');
             // check default location of email, if not found as in google plus dig inside the array of emails
             $email = ArrayHelper::getValue($attributes, 'email');
-            if($email === null){
+            if ($email === null) {
                 $email = ArrayHelper::getValue($attributes, ['emails', 0, 'value']);
             }
             $user->email = $email;

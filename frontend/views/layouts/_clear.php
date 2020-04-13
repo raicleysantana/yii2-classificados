@@ -2,11 +2,12 @@
 
 use ramosisw\CImaterial\web\MaterialAsset;
 use yii\helpers\Html;
+
 /* @var $this \yii\web\View */
 /* @var $content string */
 
 if (class_exists('ramosisw\CImaterial\web\MaterialAsset')) {
-    ramosisw\CImaterial\web\MaterialAsset::register($this);
+    MaterialAsset::register($this);
 }
 ?>
 <?php $this->beginPage() ?>
@@ -21,7 +22,7 @@ if (class_exists('ramosisw\CImaterial\web\MaterialAsset')) {
 </head>
 <body>
 <?php $this->beginBody() ?>
-    <?php echo $content ?>
+<?php echo $content ?>
 <?php $this->endBody() ?>
 </body>
 </html>

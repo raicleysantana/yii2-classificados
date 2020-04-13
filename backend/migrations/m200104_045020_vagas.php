@@ -12,7 +12,7 @@ class m200104_045020_vagas extends Migration
      */
     public function safeUp()
     {
-        $this->createTable('vagas', [
+        $this->createTable('vaga', [
             'vaga_id' => 'pk',
             'vaga_titulo' => $this->string(255)->notNull(),
             'vaga_empresa' => $this->string(255),
@@ -24,7 +24,7 @@ class m200104_045020_vagas extends Migration
             'user_id' => $this->integer()->notNull(),
         ]);
 
-        $this->addForeignKey('FK_VAGA_USER', 'vagas', 'user_id', 'user', 'id', 'RESTRICT', 'CASCADE');
+        $this->addForeignKey('FK_VAGA_USER', 'vaga', 'user_id', 'user', 'id', 'RESTRICT', 'CASCADE');
     }
 
     /**

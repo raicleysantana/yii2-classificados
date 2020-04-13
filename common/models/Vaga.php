@@ -19,14 +19,14 @@ use Yii;
  *
  * @property User $user
  */
-class Vagas extends \yii\db\ActiveRecord
+class Vaga extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'vagas';
+        return 'vaga';
     }
 
     /**

@@ -5,12 +5,12 @@ namespace backend\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Vagas;
+use common\models\Vaga;
 
 /**
  * VagasSearch represents the model behind the search form about `common\models\Vagas`.
  */
-class VagasSearch extends Vagas
+class VagaSearch extends Vaga
 {
     /**
      * @inheritdoc
@@ -41,7 +41,7 @@ class VagasSearch extends Vagas
      */
     public function search($params)
     {
-        $query = Vagas::find();
+        $query = Vaga::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

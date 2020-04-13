@@ -3,8 +3,8 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Vagas;
-use backend\models\search\VagasSearch;
+use common\models\Vaga;
+use backend\models\search\VagaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -34,7 +34,7 @@ class VagasController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new VagasSearch();
+        $searchModel = new VagaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -62,7 +62,7 @@ class VagasController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Vagas();
+        $model = new Vaga();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->vaga_id]);
@@ -107,12 +107,12 @@ class VagasController extends Controller
      * Finds the Vagas model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Vagas the loaded model
+     * @return Vaga the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Vagas::findOne($id)) !== null) {
+        if (($model = Vaga::findOne($id)) !== null) {
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist.');

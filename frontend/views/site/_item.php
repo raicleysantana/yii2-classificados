@@ -1,10 +1,13 @@
 <?php
 
-?>
+use yii\helpers\Url;
+use yii\widgets\Pjax; ?>
 
 <div class="panel panel-danger">
     <div class="panel-body">
-        <h2 class="vaga-titulo"><?= $model->vaga_titulo ?></h2>
+        <h2 class="vaga-titulo"><a
+                    href="<?= Url::to(['view_vaga', 'id' => $model->vaga_id]) ?>"><?= $model->vaga_titulo ?></a>
+        </h2>
 
         <small>Publicado: <?= Yii::$app->formatter->asDate($model->vaga_publicado, 'dd/MM/Y H:mm'); ?></small>
         <small style="margin-left: 15px">Por: <?= $model->user->userProfile->fullName ?></small>
@@ -26,6 +29,10 @@
             <?php endif; ?>
         </div>
         <hr>
-        2 <i class="fa fa-heart"></i>
+        <?php
+        Pjax::begin(['id' => 'container-curtida-' . $model->vaga_id]);
+        ?>
+        2 <?= $this->render('_curtida', ['model' => $model]); ?>
+        <?php Pjax::end(); ?>
     </div>
 </div>
