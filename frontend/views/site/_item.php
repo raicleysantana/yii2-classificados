@@ -1,5 +1,7 @@
 <?php
 
+use yii\helpers\Html;
+use yii\helpers\StringHelper;
 use yii\helpers\Url;
 use yii\widgets\Pjax; ?>
 
@@ -12,9 +14,13 @@ use yii\widgets\Pjax; ?>
         <small>Publicado: <?= Yii::$app->formatter->asDate($model->vaga_publicado, 'dd/MM/Y H:mm'); ?></small>
         <small style="margin-left: 15px">Por: <?= $model->user->userProfile->fullName ?></small>
         <br>
-        <div style="margin: 5px 0">
-            <?= $model->vaga_descricao ?>
-        </div>
+
+        <?php if ($descricao = $model->vaga_descricao): ?>
+            <div style="margin: 5px 0">
+                <?= StringHelper::truncateWords($descricao, 50, '...' . Html::a('Ver mais', ['site/view_vaga', 'id' => $model->vaga_id], ['style' => 'font-weight:600'])) ?>
+            </div>
+        <?php endif; ?>
+
         <div class="row">
             <?php if ($contato = $model->vaga_contato): ?>
                 <div class="col-md-6">
@@ -32,7 +38,7 @@ use yii\widgets\Pjax; ?>
         <?php
         Pjax::begin(['id' => 'container-curtida-' . $model->vaga_id]);
         ?>
-        2 <?= $this->render('_curtida', ['model' => $model]); ?>
+        <?= $model->vaga_qtde_curtida ?><?= $this->render('_curtida', ['model' => $model]); ?>
         <?php Pjax::end(); ?>
     </div>
 </div>

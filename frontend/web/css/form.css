@@ -1,0 +1,57 @@
+.form-group label.control-label {
+    color: rgba(76, 76, 76, 0.94);
+    font-weight: 600;
+    font-size: 10pt;
+}
+
+.form-group {
+    margin: 0;
+}
+
+.form-group > .form-control {
+    padding: 15px 8px;
+    border: 2px solid #ddd;
+    background-size: 0 2px, 100% 0;
+    color: rgba(30, 30, 30, 0.64);
+    transition: font-size;
+    transition-duration: 1s;
+}
+
+.btn-social {
+    font-size: 10pt;
+    font-weight: normal !important;
+    text-transform: none;
+    line-height: 1.15384615;
+    font-family: inherit;
+}
+
+.btn-social:hover {
+    opacity: 0.9;
+}
+
+.btn-google {
+    background: white;
+}
+
+.omb_spanOr {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: -0.6em;
+    margin-left: -1.5em;
+    background-color: white;
+    width: 3em;
+    text-align: center;
+    color: #aaa;
+}
+
+.omb_hrOr {
+    background-color: #cdcdcd;
+    height: 1px;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+h1 {
+    font-weight: 600;
+}

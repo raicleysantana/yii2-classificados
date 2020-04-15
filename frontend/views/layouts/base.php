@@ -29,6 +29,10 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
                     'visible' => !Yii::$app->user->isGuest,
                     'items' => [
                         [
+                            'label' => 'Painel Administrativo',
+                            'url' => ['/user'],
+                        ],
+                        [
                             'label' => 'Minha Conta',
                             'url' => ['/user/default/account']
                         ],

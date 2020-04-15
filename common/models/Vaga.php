@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "vagas".
@@ -21,6 +22,8 @@ use Yii;
  */
 class Vaga extends \yii\db\ActiveRecord
 {
+    public $file;
+
     /**
      * {@inheritdoc}
      */
@@ -36,13 +39,14 @@ class Vaga extends \yii\db\ActiveRecord
     {
         return [
             [['vaga_titulo', 'vaga_status', 'user_id'], 'required'],
-            [['vaga_publicado'], 'safe'],
+            [['vaga_publicado', 'file'], 'safe'],
             [['vaga_descricao'], 'string'],
             [['user_id'], 'integer'],
             [['vaga_titulo', 'vaga_empresa', 'vaga_contato'], 'string', 'max' => 255],
             [['vaga_status'], 'string', 'max' => 1],
             [['vaga_arquivo'], 'string', 'max' => 1000],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['file'], 'file'],
         ];
     }
 
@@ -78,5 +82,31 @@ class Vaga extends \yii\db\ActiveRecord
             'A' => 'Ativo',
             'I' => 'Inativo',
         ];
+    }
+
+    public function incrementaCurtida()
+    {
+        $this->vaga_qtde_curtida = ($this->vaga_qtde_curtida + 1);
+        $this->save(false);
+    }
+
+    public function decrementaCurtida()
+    {
+        $this->vaga_qtde_curtida > 0 ? $this->vaga_qtde_curtida = ($this->vaga_qtde_curtida - 1) : false;
+        $this->save(false);
+    }
+
+    public function saveUpload()
+    {
+        $this->file = UploadedFile::getInstance($this, 'file');
+
+        if ($this->file) {
+            $pathFile = $this->file->baseName . '.' . $this->file->extension;
+            $path = Yii::getAlias('@storage/web/source/vaga_upload/');
+            $this->file->saveAs($path . $pathFile);
+            $this->vaga_arquivo = $path . $pathFile;
+        }
+
+
     }
 }

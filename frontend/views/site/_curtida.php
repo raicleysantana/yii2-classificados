@@ -30,6 +30,7 @@ if (!$curtida):
 
 <?php
 else:
+    
     ?>
     <i class="fa fa-heart icone-gostei icone-gostei-ativo" onclick="
             $.ajax({

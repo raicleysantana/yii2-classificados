@@ -3,6 +3,7 @@
 use lo\widgets\magnific\MagnificPopup;
 use ramosisw\CImaterial\web\MaterialAsset;
 use yii\helpers\Html;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $name string */
@@ -30,9 +31,12 @@ $this->registerCssFile('css/custom.css', ['depends' => MaterialAsset::className(
                 <small>Publicado: <?= Yii::$app->formatter->asDate($model->vaga_publicado, 'dd/MM/Y H:mm'); ?></small>
                 <small style="margin-left: 15px">Por: <?= $model->user->userProfile->fullName ?></small>
 
-                <div style="margin: 5px 0">
-                    <?= $model->vaga_descricao ?>
-                </div>
+                <?php if ($descricao = $model->vaga_descricao): ?>
+                    <div style="margin: 5px 0">
+                        <?= $descricao ?>
+                    </div>
+                <?php endif; ?>
+
                 <div class="row">
                     <?php if ($contato = $model->vaga_contato): ?>
                         <div class="col-md-6">
@@ -48,6 +52,12 @@ $this->registerCssFile('css/custom.css', ['depends' => MaterialAsset::className(
                         </div>
                     <?php endif; ?>
                 </div>
+                <hr>
+                <?php Pjax::begin(['id' => 'container-curtida-' . $model->vaga_id]); ?>
+                <?= $model->vaga_qtde_curtida ?><?= $this->render('_curtida', ['model' => $model]); ?>
+                <?php Pjax::end();
+
+                ?>
             </div>
         </div>
     </div>

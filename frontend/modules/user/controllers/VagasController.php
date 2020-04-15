@@ -8,14 +8,13 @@ use frontend\modules\user\models\search\vagaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * VagasController implements the CRUD actions for Vagas model.
  */
 class VagasController extends Controller
 {
-    public $layout = "@frontend/views/layouts/material-dashboard";
-
     /**
      * {@inheritdoc}
      */
@@ -72,6 +71,10 @@ class VagasController extends Controller
 
             $model->user_id = Yii::$app->user->id;
             $model->vaga_publicado = $date;
+
+            if ($model->vaga_arquivo) {
+                $model->saveUpload();
+            }
             $model->save();
             return $this->redirect(['view', 'id' => $model->vaga_id]);
         }
@@ -92,7 +95,10 @@ class VagasController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->saveUpload();
+            $model->save();
             return $this->redirect(['view', 'id' => $model->vaga_id]);
         }
 

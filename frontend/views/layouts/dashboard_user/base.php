@@ -4,8 +4,9 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\View;
 
-/* @var $this \yii\web\View */
+/* @var $this View */
 /* @var $content string */
 
 $this->beginContent('@frontend/views/layouts/dashboard_user/_clear.php')
@@ -13,7 +14,7 @@ $this->beginContent('@frontend/views/layouts/dashboard_user/_clear.php')
 
     <div class="wrapper">
 
-        <div class="sidebar" data-color="purple" data-image="../assets/img/sidebar-1.jpg">
+        <div class="sidebar" data-color="blue">
             <!--
                 Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
@@ -28,7 +29,7 @@ $this->beginContent('@frontend/views/layouts/dashboard_user/_clear.php')
 
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="active">
+                    <li>
                         <a href="<?= Url::to(['/user']) ?>">
                             <i class="material-icons">dashboard</i>
                             <p>Painel de Administrativo</p>
@@ -59,7 +60,7 @@ $this->beginContent('@frontend/views/layouts/dashboard_user/_clear.php')
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <span class="navbar-brand"><?php echo Html::encode($this->title) ?></span>
+
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
@@ -77,11 +78,19 @@ $this->beginContent('@frontend/views/layouts/dashboard_user/_clear.php')
                                     <li><a href="#">Another One</a></li>
                                 </ul>
                             </li>
+
                             <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="material-icons">person</i>
+                                    <b><?= Yii::$app->user->identity->username; ?></b>
                                     <p class="hidden-lg hidden-md">Profile</p>
                                 </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<?= Url::to('/user/default/account') ?>">Minha Conta</a></li>
+                                    <li><a href="<?= Url::to('/user/settings') ?>">Configuração</a></li>
+                                    <li class="dropdown-divider"></li>
+                                    <li><a data-method="post" href="<?= Url::to('/user/sign-in/logout') ?>">Sair</a></li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
@@ -132,100 +141,29 @@ $this->beginContent('@frontend/views/layouts/dashboard_user/_clear.php')
         </div>
     </div>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-
+<?php
+$js = <<< JS
+ $(document).ready(function () {
             // Javascript method's body can be found in assets/js/demos.js
             demo.initDashboardPageCharts();
-
         });
-    </script>
+JS;
+$this->registerJs($js, View::POS_END);
+?>
 
-    <script>
-        $(document).ready(function () {
-
-            $('#facebook').sharrre({
-                share: {
-                    facebook: true
-                },
-                enableHover: false,
-                enableTracking: false,
-                enableCounter: false,
-                click: function (api, options) {
-                    api.simulateClick();
-                    api.openPopup('facebook');
-                },
-                template: '<i class="fab fa-facebook-f"></i> Facebook',
-                url: 'https://demos.creative-tim.com/material-dashboard/examples/dashboard.html'
-            });
-
-            $('#google').sharrre({
-                share: {
-                    googlePlus: true
-                },
-                enableCounter: false,
-                enableHover: false,
-                enableTracking: true,
-                click: function (api, options) {
-                    api.simulateClick();
-                    api.openPopup('googlePlus');
-                },
-                template: '<i class="fab fa-google-plus"></i> Google',
-                url: 'https://demos.creative-tim.com/material-dashboard/examples/dashboard.html'
-            });
-
-            $('#twitter').sharrre({
-                share: {
-                    twitter: true
-                },
-                enableHover: false,
-                enableTracking: false,
-                enableCounter: false,
-                buttons: {
-                    twitter: {
-                        via: 'CreativeTim'
-                    }
-                },
-                click: function (api, options) {
-                    api.simulateClick();
-                    api.openPopup('twitter');
-                },
-                template: '<i class="fab fa-twitter"></i> Twitter',
-                url: 'https://demos.creative-tim.com/material-dashboard/examples/dashboard.html'
-            });
-
-            // Facebook Pixel Code Don't Delete
-            !function (f, b, e, v, n, t, s) {
-                if (f.fbq) return;
-                n = f.fbq = function () {
-                    n.callMethod ?
-                        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-                };
-                if (!f._fbq) f._fbq = n;
-                n.push = n;
-                n.loaded = !0;
-                n.version = '2.0';
-                n.queue = [];
-                t = b.createElement(e);
-                t.async = !0;
-                t.src = v;
-                s = b.getElementsByTagName(e)[0];
-                s.parentNode.insertBefore(t, s)
-            }(window,
-                document, 'script', '//connect.facebook.net/en_US/fbevents.js');
-
-            try {
-                fbq('init', '111649226022273');
-                fbq('track', "PageView");
-
-            } catch (err) {
-                console.log('Facebook Track Error:', err);
-            }
-
+<?php
+$js = <<< JS
+$(document).ready(function () {
+    
+            var url = window.location;
+            
+           $('ul.nav a').filter(function() {
+                    return this.href == url;
+          })
+          .parent().addClass('active');
         });
-    </script>
-
-<?php $this->endBody() ?>
-
+JS;
+$this->registerJs($js, View::POS_END);
+?>
 
 <?php $this->endContent() ?>

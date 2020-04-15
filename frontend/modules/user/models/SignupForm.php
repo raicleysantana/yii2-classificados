@@ -31,6 +31,11 @@ class SignupForm extends Model
     public $password;
 
     /**
+     * @var
+     */
+    public $password_confirm;
+
+    /**
      * @inheritdoc
      */
     public function rules()
@@ -52,8 +57,9 @@ class SignupForm extends Model
                 'message' => Yii::t('frontend', 'This email address has already been taken.')
             ],
 
-            ['password', 'required'],
+            [['password', 'password_confirm'], 'required'],
             ['password', 'string', 'min' => 6],
+            ['password_confirm', 'compare', 'compareAttribute' => 'password']
         ];
     }
 
@@ -66,6 +72,7 @@ class SignupForm extends Model
             'username' => 'Usuário',
             'email' => 'E-mail',
             'password' => 'Senha',
+            'password_confirm' => 'Confirmar Senha',
         ];
     }
 

@@ -10,10 +10,28 @@ use yii\web\Controller;
 class SettingsController extends Controller
 {
 
+    public function getIndexBreadcrumb()
+    {
+        return ['label' => 'Configuração', 'url' => ['index']];
+    }
+
+
     public function actionIndex()
     {
+        return $this->render('index');
+    }
+
+    public function actionSistema()
+    {
+        $title = "Sistema";
+        $breadcrumbs[] = $this->getIndexBreadcrumb();
+
         $model = new FormModel([
             'keys' => [
+                'common.nome_sitema' => [
+                    'label' => 'Nome do Sistema',
+                    'type' => FormModel::TYPE_TEXTINPUT,
+                ],
                 'frontend.maintenance' => [
                     'label' => Yii::t('backend', 'Frontend maintenance mode'),
                     'type' => FormModel::TYPE_DROPDOWN,
@@ -62,7 +80,7 @@ class SettingsController extends Controller
             return $this->refresh();
         }
 
-        return $this->render('index', ['model' => $model]);
+        return $this->render('_form', ['model' => $model, 'title' => $title, 'breadcrumbs' => $breadcrumbs]);
     }
 
 }

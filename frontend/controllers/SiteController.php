@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use cheatsheet\Time;
 use common\models\Curtida;
+use common\models\User;
 use common\models\Vaga;
 use common\sitemap\UrlsIterator;
 use frontend\models\ContactForm;
@@ -14,6 +15,7 @@ use yii\data\ActiveDataProvider;
 use yii\filters\PageCache;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
@@ -143,6 +145,8 @@ class SiteController extends Controller
         $ip = Yii::$app->request->getUserIP();
         $userId = Yii::$app->user->id;
 
+        $vaga = $this->findVagaModel($id);
+
         $model = Curtida::find()->where(['vaga_id' => $id])
             ->andWhere(['or', ['ip' => $ip], ['user_id' => $userId]])
             ->one();
@@ -154,10 +158,9 @@ class SiteController extends Controller
             $model->ip = $ip;
             $model->vaga_id = $id;
             if ($model->save(false)) {
-                echo 'Salvo com sucessso';
-            } else {
-                var_dump($model->getErrors());
+                $vaga->incrementaCurtida();
             }
+
         }
 
     }
@@ -167,12 +170,22 @@ class SiteController extends Controller
         $ip = Yii::$app->request->getUserIP();
         $userId = Yii::$app->user->id;
 
+        $vaga = $this->findVagaModel($id);
+
         $model = Curtida::find()
             ->andWhere(['or', ['ip' => $ip], ['user_id' => $userId]])
             ->one();
 
         if ($model) {
+            $vaga->decrementaCurtida();
             $model->delete();
+        }
+    }
+
+    protected function findVagaModel($id)
+    {
+        if (($model = Vaga::findOne($id)) !== null) {
+            return $model;
         }
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use kartik\file\FileInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -26,7 +27,9 @@ use yii\widgets\ActiveForm;
 
                 <?= $form->field($model, 'vaga_descricao')->textarea(['rows' => 8]) ?>
 
-                <?= $form->field($model, 'vaga_arquivo')->fileInput() ?>
+                <?= $form->field($model, 'file')->widget(FileInput::className(), [
+                    'options' => ['accept' => 'image/*'],
+                ]) ?>
 
                 <div class="row">
                     <div class="col-md-3">

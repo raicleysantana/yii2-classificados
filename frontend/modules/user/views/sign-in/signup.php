@@ -1,5 +1,7 @@
 <?php
 
+use ramosisw\CImaterial\web\MaterialAsset;
+use yii\authclient\widgets\AuthChoice;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -9,34 +11,52 @@ use yii\widgets\ActiveForm;
 
 $this->title = 'Criar Conta';
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerCssFile('css/form.css', ['depends' => MaterialAsset::className()]);
 ?>
 
 
 <div class="site-signup">
-    <h1><?php echo Html::encode($this->title) ?></h1>
+    <h1 class="text-center"><?php echo Html::encode($this->title) ?></h1>
 
     <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
-            <?php echo $form->field($model, 'username') ?>
-            <?php echo $form->field($model, 'email') ?>
-            <?php echo $form->field($model, 'password')->passwordInput() ?>
-            <div class="form-group">
-                <?php echo Html::submitButton(Yii::t('frontend', 'Signup'), ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+        <div class="col-lg-6 col-lg-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+                    <?php echo $form->field($model, 'username') ?>
+                    <?php echo $form->field($model, 'email') ?>
+                    <?php echo $form->field($model, 'password')->passwordInput() ?>
+                    <?php echo $form->field($model, 'password_confirm')->passwordInput() ?>
+                    <div class="form-group">
+                        <?php echo Html::submitButton(Yii::t('frontend', 'Signup'), ['class' => 'btn btn-primary btn-block', 'name' => 'signup-button']) ?>
+                    </div>
+
+                    <div class="row" style="margin: 15px 0">
+                        <div class="col-md-12">
+                            <hr class="omb_hrOr">
+                            <span class="omb_spanOr">Ou</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <?php $authAuthChoice = AuthChoice::begin([
+                            'baseAuthUrl' => ['site/auth'],
+                            'autoRender' => false,
+                        ]); ?>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <?= Html::a('<i class="fa fa-facebook-f"></i> Registrar com Facebook', [], ['class' => 'btn btn-facebook sharrre btn-block']); ?>
+                            </div>
+                            <div class="col-md-6">
+                                <?= Html::a('<i class="fa fa-google-plus"></i> Registrar com Google', [], ['class' => 'btn btn-google sharrre btn-block']); ?>
+                            </div>
+                        </div>
+                        <?php AuthChoice::end(); ?>
+                    </div>
+                    <?php ActiveForm::end(); ?>
+                </div>
             </div>
-            <h2><?php echo Yii::t('frontend', 'Sign up with') ?>:</h2>
-            <div class="form-group">
-                <?php $authAuthChoice = yii\authclient\widgets\AuthChoice::begin([
-                    'baseAuthUrl' => ['site/auth']
-                ]); ?>
-                <ul class="list-unstyle list-inline">
-                    <?php foreach ($authAuthChoice->getClients() as $client): ?>
-                        <li><?= $authAuthChoice->clientLink($client) ?></li>
-                    <?php endforeach; ?>
-                </ul>
-                <?php yii\authclient\widgets\AuthChoice::end(); ?>
-            </div>
-            <?php ActiveForm::end(); ?>
         </div>
     </div>
 </div>
