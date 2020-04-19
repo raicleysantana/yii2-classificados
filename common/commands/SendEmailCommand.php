@@ -55,7 +55,7 @@ class SendEmailCommand extends BaseObject implements SelfHandlingCommand
     public function handle($command)
     {
         if (!$command->body) {
-            $message = \Yii::$app->mailer->compose($command->view, $command->params);
+            $message = \Yii::$app->mail->compose($command->view, $command->params);
         } else {
             $message = new Message();
             if ($command->isHtml()) {

@@ -28,7 +28,7 @@ class SettingsController extends Controller
 
         $model = new FormModel([
             'keys' => [
-                'common.nome_sitema' => [
+                'common.nome_sistema' => [
                     'label' => 'Nome do Sistema',
                     'type' => FormModel::TYPE_TEXTINPUT,
                 ],

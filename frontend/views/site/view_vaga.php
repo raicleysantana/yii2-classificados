@@ -1,6 +1,6 @@
 <?php
 
-use lo\widgets\magnific\MagnificPopup;
+use kartik\social\FacebookPlugin;
 use ramosisw\CImaterial\web\MaterialAsset;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
@@ -20,6 +20,11 @@ $this->registerCssFile('css/custom.css', ['depends' => MaterialAsset::className(
     .vaga-titulo {
         font-size: 24px;
         font-weight: 600;
+    }
+
+    .items {
+        float: left;
+        margin-left: 15px;
     }
 </style>
 <div class="site-vaga">
@@ -53,11 +58,25 @@ $this->registerCssFile('css/custom.css', ['depends' => MaterialAsset::className(
                     <?php endif; ?>
                 </div>
                 <hr>
-                <?php Pjax::begin(['id' => 'container-curtida-' . $model->vaga_id]); ?>
-                <?= $model->vaga_qtde_curtida ?><?= $this->render('_curtida', ['model' => $model]); ?>
-                <?php Pjax::end();
+                <div class="items">
+                    <?php Pjax::begin(['id' => 'container-curtida-' . $model->vaga_id]); ?>
+                    <?= $model->vaga_qtde_curtida ?><?= $this->render('_curtida', ['model' => $model]); ?>
+                    <?php Pjax::end();
+                    ?>
+                </div>
+                <div class="items">
+                    <?php echo FacebookPlugin::widget([
+                        'type' => FacebookPlugin::SHARE,
+                        'language' => 'pt_BR',
+                        'settings' =>
+                            [
+                                'size' => 'small',
+                                'layout' => 'button_count',
+                                'mobile_iframe' => false,
+                            ],
 
-                ?>
+                    ]); ?>
+                </div>
             </div>
         </div>
     </div>

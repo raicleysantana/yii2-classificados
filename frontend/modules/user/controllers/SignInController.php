@@ -38,7 +38,7 @@ class SignInController extends \yii\web\Controller
     public function actions()
     {
         return [
-            'oauth' => [
+            'auth' => [
                 'class' => AuthAction::class,
                 'successCallback' => [$this, 'successOAuthCallback']
             ]
@@ -56,14 +56,14 @@ class SignInController extends \yii\web\Controller
                 'rules' => [
                     [
                         'actions' => [
-                            'signup', 'login', 'login-by-pass', 'request-password-reset', 'reset-password', 'oauth', 'activation', 'resend-email'
+                            'signup', 'login', 'login-by-pass', 'request-password-reset', 'reset-password', 'auth', 'activation', 'resend-email'
                         ],
                         'allow' => true,
                         'roles' => ['?']
                     ],
                     [
                         'actions' => [
-                            'signup', 'login', 'request-password-reset', 'reset-password', 'oauth', 'activation', 'resend-email'
+                            'signup', 'login', 'request-password-reset', 'reset-password', 'auth', 'activation', 'resend-email'
                         ],
                         'allow' => false,
                         'roles' => ['@'],
@@ -286,36 +286,54 @@ class SignInController extends \yii\web\Controller
     {
         // use BaseClient::normalizeUserAttributeMap to provide consistency for user attribute`s names
         $attributes = $client->getUserAttributes();
-        $user = User::find()->where([
-            'oauth_client' => $client->getName(),
-            'oauth_client_user_id' => ArrayHelper::getValue($attributes, 'id')
-        ])->one();
+
+        $profileData = [];
+
+        $profileData['id'] = ArrayHelper::getValue($attributes, 'id');
+        $profileData['name'] = ArrayHelper::getValue($attributes, 'name');
+        $profileData['email'] = ArrayHelper::getValue($attributes, 'email');
+
+        switch ($client->getName()) {
+            case 'facebook':
+                $profileData['firstname'] = ArrayHelper::getValue($attributes, 'first_name');
+                $profileData['lastname'] = ArrayHelper::getValue($attributes, 'last_name');
+                break;
+            case 'google':
+                $profileData['picture'] = ArrayHelper::getValue($attributes, 'picture');
+                break;
+        }
+
+        $user = User::find()
+            ->where([
+                'oauth_client' => $client->getName(),
+                'oauth_client_user_id' => $profileData['id']
+            ])->one();
+
         if (!$user) {
             $user = new User();
             $user->scenario = 'oauth_create';
-            $user->username = ArrayHelper::getValue($attributes, 'login');
-            // check default location of email, if not found as in google plus dig inside the array of emails
-            $email = ArrayHelper::getValue($attributes, 'email');
+            $user->username = $user->setAuthUsername($profileData['firstname'], $profileData['lastname']);
+
+            $email = $profileData['email'];
+
             if ($email === null) {
                 $email = ArrayHelper::getValue($attributes, ['emails', 0, 'value']);
             }
+
             $user->email = $email;
             $user->oauth_client = $client->getName();
-            $user->oauth_client_user_id = ArrayHelper::getValue($attributes, 'id');
+            $user->oauth_client_user_id = $profileData['id'];
             $user->status = User::STATUS_ACTIVE;
             $password = Yii::$app->security->generateRandomString(8);
             $user->setPassword($password);
+
             if ($user->save()) {
-                $profileData = [];
-                if ($client->getName() === 'facebook') {
-                    $profileData['firstname'] = ArrayHelper::getValue($attributes, 'first_name');
-                    $profileData['lastname'] = ArrayHelper::getValue($attributes, 'last_name');
-                }
                 $user->afterSignup($profileData);
+
                 $sentSuccess = Yii::$app->commandBus->handle(new SendEmailCommand([
                     'view' => 'oauth_welcome',
                     'params' => ['user' => $user, 'password' => $password],
-                    'subject' => Yii::t('frontend', '{app-name} | Your login information', ['app-name' => Yii::$app->name]),
+                    'subject' => Yii::t('frontend', '{app-name} | Your login information', ['app-name' => $user->username]),
                     'to' => $user->email
                 ]));
                 if ($sentSuccess) {
@@ -324,14 +342,12 @@ class SignInController extends \yii\web\Controller
                         [
                             'options' => ['class' => 'alert-success'],
                             'body' => Yii::t('frontend', 'Welcome to {app-name}. Email with your login information was sent to your email.', [
-                                'app-name' => Yii::$app->name
+                                'app-name' => $user->username
                             ])
                         ]
                     );
                 }
-
             } else {
-                // We already have a user with this email. Do what you want in such case
                 if ($user->email && User::find()->where(['email' => $user->email])->count()) {
                     Yii::$app->session->setFlash(
                         'alert',
@@ -351,13 +367,13 @@ class SignInController extends \yii\web\Controller
                         ]
                     );
                 }
-
             };
         }
+
         if (Yii::$app->user->login($user, 3600 * 24 * 30)) {
             return true;
         }
 
-        throw new Exception('OAuth error');
+        throw new Exception('Erro ao autenticar usuário');
     }
 }

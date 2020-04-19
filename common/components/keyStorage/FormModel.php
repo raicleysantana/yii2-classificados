@@ -2,6 +2,7 @@
 
 namespace common\components\keyStorage;
 
+use common\models\KeyStorageItem;
 use Yii;
 use yii\base\Exception;
 use yii\base\InvalidArgumentException;
@@ -259,5 +260,12 @@ class FormModel extends Model
     public function getAttribute($name)
     {
         return isset($this->attributes[$name]) ? $this->attributes[$name] : null;
+    }
+
+    public static function findOne($key){
+     /*   return Yii::$app->db->createCommand('SELECT VALUE FROM key_storage_item WHERE KEY = :key')
+            ->bindValue(':key', $key)
+            ->queryScalar();*/
+        return KeyStorageItem::findOne(['key' => $key])->value;
     }
 }

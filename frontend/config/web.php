@@ -4,11 +4,19 @@ $config = [
     'controllerNamespace' => 'frontend\controllers',
     'defaultRoute' => 'site/index',
     'bootstrap' => ['maintenance'],
+    'sourceLanguage' => 'pt-BR',
+    'language' => 'pt-BR',
     'modules' => [
         'user' => [
             'class' => frontend\modules\user\Module::class,
             'shouldBeActivated' => false,
             'enableLoginByPass' => false,
+        ],
+        'social' => [
+            'class' => 'kartik\social\Module',
+            'facebook' => [
+                'appId' => env('FACEBOOK_CLIENT_ID'),
+            ],
         ],
     ],
     'components' => [

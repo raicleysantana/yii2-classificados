@@ -46,10 +46,14 @@ $this->registerCssFile('css/form.css', ['depends' => MaterialAsset::className()]
                         ]); ?>
                         <div class="row">
                             <div class="col-md-6">
-                                <?= Html::a('<i class="fa fa-facebook-f"></i> Registrar com Facebook', [], ['class' => 'btn btn-facebook sharrre btn-block']); ?>
+                                <?= Html::a('<i class="fa fa-facebook-f"></i> Registrar com Facebook', ['/user/sign-in/auth', 'authclient' => 'facebook'],
+                                    ['class' => 'btn btn-facebook btn-block auth-link',
+                                        'data-popup-width' => 960,
+                                        'data-popup-height' => 580,
+                                    ]); ?>
                             </div>
                             <div class="col-md-6">
-                                <?= Html::a('<i class="fa fa-google-plus"></i> Registrar com Google', [], ['class' => 'btn btn-google sharrre btn-block']); ?>
+                                <?= Html::a('<i class="fa fa-google-plus"></i> Registrar com Google', ['/user/sign-in/auth', 'authclient' => 'google'], ['class' => 'btn btn-google sharrre btn-block']); ?>
                             </div>
                         </div>
                         <?php AuthChoice::end(); ?>

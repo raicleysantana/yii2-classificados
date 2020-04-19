@@ -23,13 +23,13 @@ class ContactForm extends Model
     {
         return [
             // name, email, subject and body are required
-            [['name', 'email', 'subject', 'body', 'verifyCode'], 'required'],
+            [['name', 'email', 'subject', 'body'], 'required'],
             // We need to sanitize them
             [['name', 'subject', 'body'], 'filter', 'filter' => 'strip_tags'],
             // email has to be a valid email address
             ['email', 'email'],
             // verifyCode needs to be entered correctly
-            ['verifyCode', 'captcha'],
+       //     ['verifyCode', 'captcha'],
 
         ];
     }
@@ -55,11 +55,12 @@ class ContactForm extends Model
      */
     public function contact($email)
     {
+
         if ($this->validate()) {
             return Yii::$app->mailer->compose()
-                ->setTo($email)
+                ->setTo('raicleysantana1@gmail.com')
                 ->setFrom(Yii::$app->params['robotEmail'])
-                ->setReplyTo([$this->email => $this->name])
+                //->setReplyTo([$this->email => $this->name])
                 ->setSubject($this->subject)
                 ->setTextBody($this->body)
                 ->send();

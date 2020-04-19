@@ -1,6 +1,7 @@
 <?php
+
 $config = [
-    'name' => 'Yii2 Starter Kit',
+    'name' => 'Classificados',
     'vendorPath' => __DIR__ . '/../../vendor',
     'extensions' => require(__DIR__ . '/../../vendor/yiisoft/extensions.php'),
     'sourceLanguage' => 'pt-BR',
@@ -50,11 +51,43 @@ $config = [
         ],
 
         'mailer' => [
-            'class' => yii\swiftmailer\Mailer::class,
-            'messageConfig' => [
-                'charset' => 'UTF-8',
-                'from' => env('ADMIN_EMAIL')
-            ]
+            'class' => 'yii\swiftmailer\Mailer',
+            /*       'messageConfig' => [
+                       'charset' => 'UTF-8',
+                       'from' => env('ADMIN_EMAIL')
+                   ],*/
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => trim(env('SMTP_HOST')),
+                'username' => trim(env('ADMIN_EMAIL')),
+                'password' => trim(env('ADMIN_PASS')),
+                'port' => trim(env('SMTP_PORT')),
+                'encryption' => trim(env('SMTP_ENCRYPTION')),
+                'streamOptions' => [
+                    'ssl' => [
+                        'allow_self_signed' => true,
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                    ],
+                ]
+            ],
+
+        ],
+
+        'mail' => [
+            'class' => 'zyx\phpmailer\Mailer',
+            'viewPath' => '@frontend/mail',
+            'useFileTransport' => false,
+            'config' => [
+                'mailer' => 'smtp',
+                'host' => env('SMTP_HOST'),
+                'port' => env('SMTP_PORT'),
+                'smtpsecure' => env('SMTP_ENCRYPTION'),
+                'smtpauth' => true,
+                'username' => env('ADMIN_EMAIL'),
+                'password' => env('ADMIN_PASS'),
+            ],
         ],
 
         'db' => [
