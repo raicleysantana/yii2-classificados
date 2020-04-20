@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use cheatsheet\Time;
+use common\components\metricas\MetricaVaga;
 use common\models\Curtida;
 use common\models\User;
 use common\models\Vaga;
@@ -73,32 +74,6 @@ class SiteController extends Controller
     }
 
     /**
-     * @return string|Response
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->contact(Yii::$app->params['adminEmail'])) {
-                Yii::$app->getSession()->setFlash('alert', [
-                    'body' => Yii::t('frontend', 'Thank you for contacting us. We will respond to you as soon as possible.'),
-                    'options' => ['class' => 'alert-success']
-                ]);
-                return $this->refresh();
-            }
-
-            Yii::$app->getSession()->setFlash('alert', [
-                'body' => \Yii::t('frontend', 'There was an error sending email.'),
-                'options' => ['class' => 'alert-danger']
-            ]);
-        }
-
-        return $this->render('contact', [
-            'model' => $model
-        ]);
-    }
-
-    /**
      * @param string $format
      * @param bool $gzip
      * @return string
@@ -136,7 +111,7 @@ class SiteController extends Controller
     public function actionView_vaga($id)
     {
         $model = Vaga::findOne($id);
-
+        MetricaVaga::insertMetrica($id);
         return $this->render('view_vaga', ['model' => $model]);
     }
 
@@ -180,6 +155,12 @@ class SiteController extends Controller
             $vaga->decrementaCurtida();
             $model->delete();
         }
+    }
+
+    public function actionCursos_recomendados()
+    {
+
+        return $this->render('cursos_recomendados');
     }
 
     protected function findVagaModel($id)

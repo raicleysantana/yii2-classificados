@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\db\ActiveRecord;
 use Yii;
 use yii\web\UploadedFile;
 
@@ -20,9 +21,13 @@ use yii\web\UploadedFile;
  *
  * @property User $user
  */
-class Vaga extends \yii\db\ActiveRecord
+class Vaga extends ActiveRecord
 {
     public $file;
+
+    protected $traducoes = [
+        'vaga_status' => 'getSituacaoOptions',
+];
 
     /**
      * {@inheritdoc}

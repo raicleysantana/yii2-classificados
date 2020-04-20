@@ -185,6 +185,10 @@ $config = [
             'class' => \yii\queue\file\Queue::class,
             'path' => '@common/runtime/queue',
         ],
+
+        'userAgent' => [
+            'class' => 'common\components\metricas\UserAgent'
+        ],
     ],
     'params' => [
         'adminEmail' => env('ADMIN_EMAIL'),

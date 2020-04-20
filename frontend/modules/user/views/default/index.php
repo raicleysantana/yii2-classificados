@@ -1,5 +1,7 @@
 <?php
 
+use common\components\metricas\MetricaVaga;
+use common\models\Vaga;
 use trntv\filekit\widget\Upload;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -19,7 +21,7 @@ $this->title = 'Bem vindo ' . Yii::$app->user->getIdentity()->username;
         </div>
         <div class="card-content">
             <p class="category">Visualizações</p>
-            <h3 class="title">0</h3>
+            <h3 class="title"><?= MetricaVaga::visualizacao(Yii::$app->user->identity->id, true) ?></h3>
         </div>
         <div class="card-footer">
             <div class="stats">
@@ -35,11 +37,11 @@ $this->title = 'Bem vindo ' . Yii::$app->user->getIdentity()->username;
         </div>
         <div class="card-content">
             <p class="category">Visualizações</p>
-            <h3 class="title">0</h3>
+            <h3 class="title"><?= MetricaVaga::visualizacao(Yii::$app->user->identity->id) ?></h3>
         </div>
         <div class="card-footer">
             <div class="stats">
-                <i class="material-icons">local_offer</i> Total
+                <i class="material-icons">date_range</i> Total
             </div>
         </div>
     </div>
@@ -51,12 +53,12 @@ $this->title = 'Bem vindo ' . Yii::$app->user->getIdentity()->username;
             <i class="fa fa-twitter"></i>
         </div>
         <div class="card-content">
-            <p class="category">Followers</p>
-            <h3 class="title">+245</h3>
+            <p class="category">Vagas</p>
+            <h3 class="title"><?= Vaga::find()->where(['user_id' => Yii::$app->user->identity->id])->count() ?></h3>
         </div>
         <div class="card-footer">
             <div class="stats">
-                <i class="material-icons">update</i> Just Updated
+                <i class="material-icons">card_travel</i> Cadastradas
             </div>
         </div>
     </div>

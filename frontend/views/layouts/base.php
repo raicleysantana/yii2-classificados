@@ -21,7 +21,7 @@ $this->beginContent('@frontend/views/layouts/_clear.php')
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
                 ['label' => 'Inicio', 'url' => ['/site/index']],
-                ['label' => 'Cursos Recomendados', 'url' => ['/site/contact']],
+                ['label' => 'Cursos Recomendados', 'url' => ['/site/cursos_recomendados']],
                 ['label' => 'Registra-se', 'url' => ['/user/sign-in/signup'], 'visible' => Yii::$app->user->isGuest],
                 ['label' => 'Entrar', 'url' => ['/user/sign-in/login'], 'visible' => Yii::$app->user->isGuest],
                 [
