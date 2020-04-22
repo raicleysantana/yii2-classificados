@@ -119,6 +119,7 @@ return [
     'Save' => 'Salvar',
     'Search' => 'Buscar',
     'Select cache' => 'Selecionar cache',
+    'Settings' => 'Configurações',
     'Settings was successfully saved' => 'Configurações gravadas com sucesso',
     'Sign In' => 'Cadastro',
     'Sign me in' => 'Cadastrar',

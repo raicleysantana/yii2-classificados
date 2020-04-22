@@ -143,11 +143,7 @@ Yii::info(Yii::$app->components["i18n"]["translations"]['*']['class'], 'test');
                         'label' => Yii::t('backend', 'Main'),
                         'options' => ['class' => 'header'],
                     ],
-                    [
-                        'label' => 'Vagas',
-                        'url' => ['/vagas'],
-                        'icon' => '<i class="fa fa-thumb-tack"></i>',
-                    ],
+
                     [
                         'label' => Yii::t('backend', 'Timeline'),
                         'icon' => '<i class="fa fa-bar-chart-o"></i>',
@@ -161,6 +157,16 @@ Yii::info(Yii::$app->components["i18n"]["translations"]['*']['class'], 'test');
                         'url' => ['/user/index'],
                         'active' => Yii::$app->controller->id === 'user',
                         'visible' => Yii::$app->user->can('administrator'),
+                    ],
+                    [
+                        'label' => 'Vagas',
+                        'url' => ['/vagas'],
+                        'icon' => '<i class="fa fa-thumb-tack"></i>',
+                    ],
+                    [
+                        'label' => 'Cursos',
+                        'url' => ['/curso'],
+                        'icon' => '<i class="fa fa-graduation-cap"></i>',
                     ],
                     [
                         'label' => Yii::t('backend', 'Content'),

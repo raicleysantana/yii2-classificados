@@ -107,11 +107,9 @@ class Vaga extends ActiveRecord
 
         if ($this->file) {
             $pathFile = $this->file->baseName . '.' . $this->file->extension;
-            $path = Yii::getAlias('@storage/web/source/vaga_upload/');
+            $path = Yii::getAlias('@storageUrl/web/source/');
             $this->file->saveAs($path . $pathFile);
             $this->vaga_arquivo = $path . $pathFile;
         }
-
-
     }
 }

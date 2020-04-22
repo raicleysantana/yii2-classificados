@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use cheatsheet\Time;
 use common\components\metricas\MetricaVaga;
+use common\models\Curso;
 use common\models\Curtida;
 use common\models\User;
 use common\models\Vaga;
@@ -159,8 +160,20 @@ class SiteController extends Controller
 
     public function actionCursos_recomendados()
     {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Curso::find(),
+            'pagination' => [
+                'pageSize' => 10,
+            ]
+        ]);
+        return $this->render('cursos_recomendados', ['dataProvider' => $dataProvider]);
+    }
 
-        return $this->render('cursos_recomendados');
+    public function actionView_curso($id)
+    {
+        $model = Curso::findOne($id);
+
+        return $this->render('view_curso', ['model' => $model]);
     }
 
     protected function findVagaModel($id)
@@ -169,4 +182,6 @@ class SiteController extends Controller
             return $model;
         }
     }
+
+
 }

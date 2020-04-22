@@ -3,6 +3,7 @@
 
 
 use yii\web\View;
+use yii\widgets\ListView;
 
 $css = <<< CSS
 .wrapperColor {
@@ -215,86 +216,14 @@ $this->title = "Cursos Recomendados";
                 <div class="content">
                     <div class="container">
                         <div class="row">
-                            <div class="col-xs-12 col-sm-3">
-                                <div class="card">
-                                    <a class="img-card" href="javascript:;" style="background:#0072AE;">
-
-                                    </a>
-                                    <div class="card-content">
-                                        <!--<h4 class="card-title">
-                                            <a href="javascript:;">
-                                                Nombre del color
-                                            </a>
-                                        </h4>-->
-                                        <p class="">
-                                            <b>HEX:</b> #0072AE
-                                        </p>
-                                        <p class="">
-                                            <b>RGB:</b> rgb(255,255,255)
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-3">
-                                <div class="card">
-                                    <a class="img-card" href="javascript:;" style="background:#FF6702;">
-
-                                    </a>
-                                    <div class="card-content">
-                                        <!--<h4 class="card-title">
-                                            <a href="javascript:;">
-                                                Nombre del color
-                                            </a>
-                                        </h4>-->
-                                        <p class="">
-                                            <b>HEX:</b> #FF6702
-                                        </p>
-                                        <p class="">
-                                            <b>RGB:</b> rgb(247,247,247)
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-3">
-                                <div class="card">
-                                    <a class="img-card" href="javascript:;" style="background:#F1F1F1;">
-
-                                    </a>
-                                    <div class="card-content">
-                                        <!--<h4 class="card-title">
-                                            <a href="javascript:;">
-                                                Nombre del color
-                                            </a>
-                                        </h4>-->
-                                        <p class="">
-                                            <b>HEX:</b> #F1F1F1
-                                        </p>
-                                        <p class="">
-                                            <b>RGB:</b> rgb(241,241,241)
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-3">
-                                <div class="card">
-                                    <a class="img-card" href="javascript:;" style="background:#626265;">
-
-                                    </a>
-                                    <div class="card-content">
-                                        <!--<h4 class="card-title">
-                                            <a href="javascript:;">
-                                                Nombre del color
-                                            </a>
-                                        </h4>-->
-                                        <p class="">
-                                            <b>HEX:</b> #626265
-                                        </p>
-                                        <p class="">
-                                            <b>RGB:</b> rgb(98,98,101)
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php
+                            echo ListView::widget([
+                                'dataProvider' => $dataProvider,
+                                'itemView' => function ($model, $view, $index, $widget) {
+                                    return $this->render('_cursos', ['model' => $model]);
+                                }
+                            ]);
+                            ?>
                         </div>
                     </div>
                 </div>
