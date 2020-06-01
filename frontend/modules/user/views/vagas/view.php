@@ -1,5 +1,6 @@
 <?php
 
+use common\components\helpers\Date;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -29,15 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'vaga_id',
+            ['attribute' => 'vaga_id', 'label' => 'ID', 'value' => $model->vaga_id],
             'vaga_titulo',
             'vaga_empresa',
             'vaga_contato',
-            'vaga_publicado',
+            ['attribute' => 'vaga_publicado', 'value' => Yii::$app->formatter->asDate($model->vaga_publicado, 'dd-MM-Y hh:mm:s')],
             'vaga_status',
             'vaga_descricao:ntext',
             'vaga_arquivo',
-            'user_id',
         ],
     ]) ?>
 

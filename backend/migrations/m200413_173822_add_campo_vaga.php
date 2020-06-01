@@ -12,7 +12,8 @@ class m200413_173822_add_campo_vaga extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('vaga', 'vaga_qtde_curtida', $this->integer()->defaultValue(0));
+        $this->addColumn('vaga', 'vaga_base_url', $this->string(300));
+        $this->addColumn('vaga', 'vaga_img_path', $this->string(300));
     }
 
     /**
@@ -20,21 +21,7 @@ class m200413_173822_add_campo_vaga extends Migration
      */
     public function safeDown()
     {
-        $this->dropColumn('vaga', 'vaga_qtde_curtida');
+        $this->dropColumn('vaga', 'vaga_base_url');
+        $this->dropColumn('vaga', 'vaga_img_path');
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m200413_173822_add_campo_vaga cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }

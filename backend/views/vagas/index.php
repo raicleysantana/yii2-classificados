@@ -1,5 +1,6 @@
 <?php
 
+use common\components\helpers\Date;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -22,17 +23,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'vaga_id',
             'vaga_titulo',
-            'vaga_empresa',
+            ['attribute' => 'vaga_publicado', 'value' => function ($model) {
+                return Date::widget([
+                    'value' => $model->vaga_publicado,
+                    'format' => 'short',
+                ]);
+            }],
+            ['attribute' => 'vaga_status', 'value' => function ($model) {
+                return $model->traducao('vaga_status');
+            },
+                'filter' => $searchModel->getSituacaoOptions(),
+            ],
             'vaga_contato',
-            'vaga_publicado',
-            // 'vaga_status',
-            // 'vaga_descricao:ntext',
-            // 'vaga_arquivo',
-            // 'user_id',
+            'vaga_empresa',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

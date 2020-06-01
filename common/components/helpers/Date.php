@@ -22,9 +22,9 @@ class Date extends Widget
         $format = Yii::$app->formatter;
 
         if ($this->format) {
-            $this->output = $format->asDate($this->value, $this->format);
+            $this->output = $format->asDatetime($this->value, $this->format);
         } else {
-            $this->output = $format->asDate($this->value);
+            $this->output = $format->asDatetime($this->value);
         }
 
     }

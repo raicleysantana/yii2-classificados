@@ -2,6 +2,9 @@
 
 namespace backend\controllers;
 
+use Intervention\Image\ImageManagerStatic;
+use trntv\filekit\actions\DeleteAction;
+use trntv\filekit\actions\UploadAction;
 use Yii;
 use common\models\Vaga;
 use backend\models\search\VagaSearch;
@@ -14,6 +17,25 @@ use yii\filters\VerbFilter;
  */
 class VagasController extends Controller
 {
+
+    public function actions()
+    {
+        return [
+            'avatar-upload' => [
+                'class' => UploadAction::class,
+                'deleteRoute' => 'avatar-delete',
+                'on afterSave' => function ($event) {
+                    /* @var $file \League\Flysystem\File */
+                    $file = $event->file;
+                    $img = ImageManagerStatic::make($file->read());
+                    $file->put($img->encode());
+                }
+            ],
+            'avatar-delete' => [
+                'class' => DeleteAction::class
+            ]
+        ];
+    }
 
     /** @inheritdoc */
     public function behaviors()
@@ -63,8 +85,11 @@ class VagasController extends Controller
     public function actionCreate()
     {
         $model = new Vaga();
+        $model->user_id = Yii::$app->user->id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->vaga_id]);
         }
         return $this->render('create', [

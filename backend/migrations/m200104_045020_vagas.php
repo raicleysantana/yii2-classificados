@@ -17,7 +17,7 @@ class m200104_045020_vagas extends Migration
             'vaga_titulo' => $this->string(255)->notNull(),
             'vaga_empresa' => $this->string(255),
             'vaga_contato' => $this->string(255),
-            'vaga_publicado' => $this->timestamp(),
+            'vaga_publicado' => $this->timestamp()->notNull(),
             'vaga_status' => $this->char(1)->notNull(),
             'vaga_descricao' => $this->text(),
             'vaga_arquivo' => $this->string(1000),
@@ -32,7 +32,7 @@ class m200104_045020_vagas extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('vagas');
+        $this->dropTable('vaga');
     }
 
     /*

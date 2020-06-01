@@ -1,6 +1,7 @@
 <?php
 
 use common\components\metricas\MetricaVaga;
+use common\models\Curtida;
 use common\models\Vaga;
 use trntv\filekit\widget\Upload;
 use yii\helpers\Html;
@@ -17,7 +18,7 @@ $this->title = 'Bem vindo ' . Yii::$app->user->getIdentity()->username;
 <div class="col-lg-3 col-md-6 col-sm-6">
     <div class="card card-stats">
         <div class="card-header" data-background-color="green">
-            <i class="material-icons">store</i>
+            <i class="fa fa-eye" aria-hidden="true"></i>
         </div>
         <div class="card-content">
             <p class="category">Visualizações</p>
@@ -33,7 +34,7 @@ $this->title = 'Bem vindo ' . Yii::$app->user->getIdentity()->username;
 <div class="col-lg-3 col-md-6 col-sm-6">
     <div class="card card-stats">
         <div class="card-header" data-background-color="red">
-            <i class="material-icons">info_outline</i>
+            <i class="fa fa-eye" aria-hidden="true"></i>
         </div>
         <div class="card-content">
             <p class="category">Visualizações</p>
@@ -50,7 +51,7 @@ $this->title = 'Bem vindo ' . Yii::$app->user->getIdentity()->username;
 <div class="col-lg-3 col-md-6 col-sm-6">
     <div class="card card-stats">
         <div class="card-header" data-background-color="blue">
-            <i class="fa fa-twitter"></i>
+            <i class="material-icons">card_travel</i>
         </div>
         <div class="card-content">
             <p class="category">Vagas</p>
@@ -58,8 +59,9 @@ $this->title = 'Bem vindo ' . Yii::$app->user->getIdentity()->username;
         </div>
         <div class="card-footer">
             <div class="stats">
-                <i class="material-icons">card_travel</i> Cadastradas
+                <i class="material-icons">card_travel</i> Publicadas
             </div>
         </div>
     </div>
 </div>
+

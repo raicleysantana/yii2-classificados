@@ -116,48 +116,6 @@ class SiteController extends Controller
         return $this->render('view_vaga', ['model' => $model]);
     }
 
-    public function actionCurtir($id)
-    {
-        $ip = Yii::$app->request->getUserIP();
-        $userId = Yii::$app->user->id;
-
-        $vaga = $this->findVagaModel($id);
-
-        $model = Curtida::find()->where(['vaga_id' => $id])
-            ->andWhere(['or', ['ip' => $ip], ['user_id' => $userId]])
-            ->one();
-
-        if (!$model) {
-            $model = new Curtida();
-
-            $model->user_id = $userId;
-            $model->ip = $ip;
-            $model->vaga_id = $id;
-            if ($model->save(false)) {
-                $vaga->incrementaCurtida();
-            }
-
-        }
-
-    }
-
-    public function actionDescurtir($id)
-    {
-        $ip = Yii::$app->request->getUserIP();
-        $userId = Yii::$app->user->id;
-
-        $vaga = $this->findVagaModel($id);
-
-        $model = Curtida::find()
-            ->andWhere(['or', ['ip' => $ip], ['user_id' => $userId]])
-            ->one();
-
-        if ($model) {
-            $vaga->decrementaCurtida();
-            $model->delete();
-        }
-    }
-
     public function actionCursos_recomendados()
     {
         $dataProvider = new ActiveDataProvider([

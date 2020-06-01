@@ -1,3 +1,7 @@
+.navbar {
+    background-color: #9c27b0 !important;
+}
+
 .vaga-titulo {
     font-weight: 600;
     color: #012237;
@@ -21,15 +25,13 @@
     color: #f16101;
 }
 
-.icone-gostei {
-    font-size: 17px;
-}
+@media (max-width: 480px) {
+    .navbar .navbar-brand {
+        padding: 17px 20px;
+    }
 
-.icone-gostei-ativo {
-    color: rgba(255, 21, 142, 0.99);
-}
-
-.icone-gostei:hover {
-    color: rgba(255, 21, 142, 0.99);
-    transition: all .4s ease;
+    .container > .navbar-header > .navbar-brand{
+        margin: 0 auto;
+        text-align: center !important;
+    }
 }

@@ -51,7 +51,7 @@ class UserAgent extends Component {
 
         // Редирект по платформе
         // (from Desktop -> http://m.localhost/...)
-        if ($this->isMobile) {
+   /*     if ($this->isMobile) {
 
             // Another way...
             // $tpl = '/https?:\/\/m.'.Yii::$app->getRequest()->serverName.'/';
@@ -63,7 +63,7 @@ class UserAgent extends Component {
 
                 Yii::$app->end();
             }
-        }
+        }*/
 
         parent::init();
     }

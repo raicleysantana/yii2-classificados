@@ -15,6 +15,14 @@ use yii\widgets\Pjax; ?>
         <small style="margin-left: 15px">Por: <?= $model->user->userProfile->fullName ?></small>
         <br>
 
+        <?php if ($model->vaga_img_path): ?>
+            <div class="row">
+                <div class="col-sm-12" align="center">
+                    <?= Html::img($model->imagem, ['class' => 'img-responsive text-center']); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <?php if ($descricao = $model->vaga_descricao): ?>
             <div style="margin: 5px 0">
                 <?= StringHelper::truncateWords($descricao, 50, '...' . Html::a('Ver mais', ['site/view_vaga', 'id' => $model->vaga_id], ['style' => 'font-weight:600'])) ?>
@@ -35,10 +43,5 @@ use yii\widgets\Pjax; ?>
             <?php endif; ?>
         </div>
         <hr>
-        <?php
-        Pjax::begin(['id' => 'container-curtida-' . $model->vaga_id]);
-        ?>
-        <?= $model->vaga_qtde_curtida ?><?= $this->render('_curtida', ['model' => $model]); ?>
-        <?php Pjax::end(); ?>
     </div>
 </div>

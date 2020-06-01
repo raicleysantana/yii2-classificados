@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\components\db\ActiveRecord;
+use trntv\filekit\behaviors\UploadBehavior;
 use Yii;
 use yii\web\UploadedFile;
 
@@ -27,7 +28,7 @@ class Vaga extends ActiveRecord
 
     protected $traducoes = [
         'vaga_status' => 'getSituacaoOptions',
-];
+    ];
 
     /**
      * {@inheritdoc}
@@ -37,6 +38,19 @@ class Vaga extends ActiveRecord
         return 'vaga';
     }
 
+
+    public function behaviors()
+    {
+        return [
+            'file' => [
+                'class' => UploadBehavior::class,
+                'attribute' => 'file',
+                'pathAttribute' => 'vaga_img_path',
+                'baseUrlAttribute' => 'vaga_base_url'
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -44,14 +58,12 @@ class Vaga extends ActiveRecord
     {
         return [
             [['vaga_titulo', 'vaga_status', 'user_id'], 'required'],
-            [['vaga_publicado', 'file'], 'safe'],
+            [['vaga_publicado', 'file', 'vaga_contato', 'vaga_empresa', 'vaga_arquivo'], 'safe'],
             [['vaga_descricao'], 'string'],
             [['user_id'], 'integer'],
             [['vaga_titulo', 'vaga_empresa', 'vaga_contato'], 'string', 'max' => 255],
             [['vaga_status'], 'string', 'max' => 1],
-            [['vaga_arquivo'], 'string', 'max' => 1000],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
-            [['file'], 'file'],
         ];
     }
 
@@ -70,6 +82,7 @@ class Vaga extends ActiveRecord
             'vaga_descricao' => 'Descrição',
             'vaga_arquivo' => 'Upload de arquivo',
             'user_id' => 'Usuário',
+            'file' => 'Upload de arquivo',
         ];
     }
 
@@ -89,18 +102,6 @@ class Vaga extends ActiveRecord
         ];
     }
 
-    public function incrementaCurtida()
-    {
-        $this->vaga_qtde_curtida = ($this->vaga_qtde_curtida + 1);
-        $this->save(false);
-    }
-
-    public function decrementaCurtida()
-    {
-        $this->vaga_qtde_curtida > 0 ? $this->vaga_qtde_curtida = ($this->vaga_qtde_curtida - 1) : false;
-        $this->save(false);
-    }
-
     public function saveUpload()
     {
         $this->file = UploadedFile::getInstance($this, 'file');
@@ -111,5 +112,10 @@ class Vaga extends ActiveRecord
             $this->file->saveAs($path . $pathFile);
             $this->vaga_arquivo = $path . $pathFile;
         }
+    }
+
+    public function getImagem()
+    {
+        return $this->vaga_base_url . $this->vaga_img_path;
     }
 }
